@@ -34,6 +34,7 @@ dropZone.addEventListener("dragleave", () => {
 
 dropZone.addEventListener("drop", (e) => {
   e.preventDefault();
+  resetFileInput();
   const files = e.dataTransfer.files;
   if (files.length) {
     fileInput.files = files;
@@ -77,26 +78,6 @@ const uploadFile = () => {
   const formData = new FormData();
 
   formData.append("myfile", file);
-
-  // const options = {
-  //   method: "POST",
-
-  //   body: formData,
-  // };
-
-  // fetch(uploadURL, options)
-  //   .then((data) => {
-  //     if (!data.ok) {
-  //       throw Error(data.status);
-  //     }
-  //     return data.json();
-  //   })
-  //   .then((update) => {
-  //     console.log(update);
-  //   })
-  //   .catch((e) => {
-  //     console.log(e);
-  //   });
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = () => {
