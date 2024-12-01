@@ -45,6 +45,7 @@ dropZone.addEventListener("drop", (e) => {
 });
 
 fileInput.addEventListener("change", () => {
+  resetFileInput();
   uploadFile();
 });
 
@@ -115,6 +116,7 @@ const onUploadSuccess = ({ file: url }) => {
 
 const resetFileInput = () => {
   fileInput.value = "";
+  progressBar.style.transform = `0`;
 };
 
 emailForm.addEventListener("submit", (e) => {
