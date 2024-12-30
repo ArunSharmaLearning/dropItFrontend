@@ -247,6 +247,7 @@ p {
   :root {
     --container-width: 320px;
   }
+
   .upload-vector {
     display: none;
   }
@@ -254,5 +255,19 @@ p {
   .email-container .field {
     flex-direction: column;
     width: 300px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .upload-container {
+    width: 90%;
+  }
+
+  .upload-container>.drop-zone {
+    margin: 20px;
+  }
+
+  .drop-zone {
+    width: 85%;
   }
 }
