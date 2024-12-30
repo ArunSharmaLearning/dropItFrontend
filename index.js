@@ -16,7 +16,7 @@ const emailForm = document.querySelector("#emailForm");
 const toast = document.querySelector(".toast");
 
 
-const host = window.location.hostname === "localhost" || "127.0.0.1"
+const host = ["localhost", "127.0.0.1"].includes(window.location.hostname)
   ? "http://localhost:3000/" // Development environment
   : "https://dropithost.onrender.com/"; // Production environment
 
