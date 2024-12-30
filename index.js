@@ -15,11 +15,15 @@ const emailForm = document.querySelector("#emailForm");
 
 const toast = document.querySelector(".toast");
 
-const host = "https://dropithost.onrender.com/";
+
+const host = window.location.hostname === "localhost" || "127.0.0.1"
+  ? "http://localhost:3000/" // Development environment
+  : "https://dropithost.onrender.com/"; // Production environment
+
 const uploadURL = `${host}api/files`;
 const emailURL = `${host}api/files/send`;
 
-const maxAllowedSize = 300 * 1024 * 1024;
+const maxAllowedSize = 200 * 1024 * 1024;
 
 dropZone.addEventListener("dragover", (e) => {
   e.preventDefault();
@@ -45,7 +49,6 @@ dropZone.addEventListener("drop", (e) => {
 });
 
 fileInput.addEventListener("change", () => {
-  resetFileInput();
   uploadFile();
 });
 
@@ -67,9 +70,8 @@ const uploadFile = () => {
   }
 
   const file = fileInput.files[0];
-
   if (file.size > maxAllowedSize) {
-    showToast("Can't upload more than 300MB");
+    showToast("Can't upload more than 200MB");
     resetFileInput();
     return;
   }
@@ -108,13 +110,14 @@ const updateProgress = (e) => {
 
 const onUploadSuccess = ({ file: url }) => {
   resetFileInput();
-  emailForm[2].removeAttribute("disabled");
+
+  emailForm.querySelector("button[type='submit']").disabled = false;
   progressContainer.style.display = "none";
   sharingContainer.style.display = "block";
   fileURLInput.value = url;
 };
 
-const resetFileInput = () => {
+const resetFileInput = async () => {
   fileInput.value = "";
   progressBar.style.transform = `0`;
 };
@@ -126,10 +129,9 @@ emailForm.addEventListener("submit", (e) => {
   const formData = {
     uuid: url.split("/").splice(-1, 1)[0],
     emailTo: emailForm.elements["to-email"].value,
-    emailFrom: emailForm.elements["from-email"].value,
   };
 
-  emailForm[2].setAttribute("disabled", "true");
+  emailForm.querySelector("button[type='submit']").disabled = true;
 
   fetch(emailURL, {
     method: "POST",
