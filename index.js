@@ -23,7 +23,7 @@ const host = ["localhost", "127.0.0.1"].includes(window.location.hostname)
 const uploadURL = `${host}api/files`;
 const emailURL = `${host}api/files/send`;
 
-const maxAllowedSize = 200 * 1024 * 1024;
+const maxAllowedSize = 300 * 1024 * 1024;
 
 dropZone.addEventListener("dragover", (e) => {
   e.preventDefault();
@@ -71,7 +71,7 @@ const uploadFile = () => {
 
   const file = fileInput.files[0];
   if (file.size > maxAllowedSize) {
-    showToast("Can't upload more than 200MB");
+    showToast("Can't upload more than 300MB");
     resetFileInput();
     return;
   }
